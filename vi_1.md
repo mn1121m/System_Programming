@@ -93,7 +93,7 @@
     </tr>
     <tr>
         <td>:q!</td>
-        <td>Force quit</td>
+        <td>Forcely quit</td>
     </tr>
     <tr>
         <td>:wq</td>
