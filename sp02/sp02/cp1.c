@@ -1,8 +1,11 @@
-/* cp1.c
-2018117610_moonjunyong
-2021-09-25 15:00
-uses read and write with tunable buffer size
-
+/*
+file: cp1.c
+author: 2018117610_moon jun yong
+datetime: 2021-10-22 (updated)
+description: 
+	version 1 of cp - uses read and write with tunable buffer size
+	
+	usage: cp1 src dest
 */
 #include <stdio.h>
 #include <unistd.h>
@@ -16,29 +19,29 @@ void oops(char *, char *);
 void main(int ac, char *av[])
 {
 	int in_fd, out_fd, n_chars;
-	char buf[BUFFERSIZE];
+	char buf[BUFFERSIZE];		
     	
-	// check args 
+	/* check args */
 	if( ac != 3) {
     		fprintf( stderr, "usage: %s source destination\n", *av);
 		exit(1);
 	}
 	
-	// open files
+	/*  open files	*/
 	if( (in_fd = open(av[1], O_RDONLY)) == -1)
 		oops("Cannot open " , av[1]);
 	
 	if( (out_fd = creat(av[2], COPYMODE)) == -1)
 		oops("Cannot create", av[2]);
 	
-	//copy files
+	/* copy files	*/
 	while( (n_chars = read(in_fd, buf, BUFFERSIZE)) > 0)
 	    	if( write( out_fd, buf, n_chars) != n_chars )
 		    	oops("Write error to ", av[2]);
 	if( n_chars == -1)
 	    		oops("Read error from ", av[1]);
 	
-	//close files
+	/* close files	*/
 	if( close(in_fd) == -1 || close(out_fd) == -1)
 	    		oops("Error closing files", "");
    

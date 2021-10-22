@@ -1,7 +1,8 @@
-/* who3.c
-2018117610_moonjunyong
-2021-09-25 15:45
-
+/*
+file: who3.c
+author: 2018117610_moonjunyong
+datetime: 2021-10-22 (updated)
+description:
 who3.c	- who with buffered reads
 	- surpresses empty records
 	- formats time nicely
@@ -11,10 +12,10 @@ who3.c	- who with buffered reads
 #include <stdio.h>
 #include <utmp.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
 #include "utmp.h"
+#include <unistd.h>	/* utmp_open, utmp_next, utmp_close */
 
 /* #define SHOWHOST */
 
@@ -26,10 +27,11 @@ who3.c	- who with buffered reads
 // Funtions
 void show_info(struct utmp* );
 void showtime(time_t);
+
 int utmp_open(char *filename);
 struct utmp *utmp_next();
-void utmp_close();
-
+int utmp_reload();
+void  utmp_close();
 // Main
 int main(void)
 {

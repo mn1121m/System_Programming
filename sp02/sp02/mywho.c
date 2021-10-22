@@ -1,7 +1,8 @@
-/* mywho.c
-2018117610_moonjunyong
-2021-09-25 15:45
-
+/*
+file: mywho.c
+author: 2018117610_moonjunyong
+datetime: 2021-10-22 (updated)
+description:
 who3.c	- who with buffered reads
 	- surpresses empty records
 	- formats time nicely
@@ -11,10 +12,12 @@ who3.c	- who with buffered reads
 #include <stdio.h>
 #include <utmp.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
 #include "utmp.h"
+#include <unistd.h>	/* utmp_open, utmp_next, utmp_close */
+
+#include <time.h>	/* edit showtime()-> localtime	*/
 /* #define SHOWHOST */
 
 #define INIT_PROCESS 5
@@ -22,23 +25,15 @@ who3.c	- who with buffered reads
 #define USER_PROCESS 7
 #define DEAD_PROCESS 8
 
-// Data structure
-struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
-};
-
 // Funtions
 void show_info(struct utmp* );
 void showtime(time_t);
 
+// Functions in <unistd.h> 
+int utmp_open(char *filename);
+struct utmp *utmp_next();
+int utmp_reload();
+void  utmp_close();
 
 // Main
 int main(void)
@@ -73,11 +68,10 @@ void show_info(struct utmp* utbufp)
 
 void showtime( long timeval)
 {
-    	time_t t = time(NULL);
-	struct tm tm =  *localtime(&timeval);
-	
-
-    	printf("%d-%d-%d %d:%d\n", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min);
+    time_t curTime = time(NULL);
+    struct tm KST = *localtime(&curTime);	/* Korean Standard Time */
+    printf("%d-%d-%d %d:%d\n", KST.tm_year +1900, KST.tm_mon +1, KST.tm_mday,
+    KST.tm_hour, KST.tm_min);
+    
 }
-
 

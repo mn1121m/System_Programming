@@ -1,9 +1,10 @@
 /*
-utmplib.c
-2018117610_moonjunyong
-2021-09-25 15:50
+file: utmplib.c
+author: 2018117610_moonjunyong
+datetime 2021-10-22 (updated)
 
-utmplib.c - functions to buffer reads from utmp file
+description
+	- functions to buffer reads from utmp file
 
 	funtions are
 		utmp_open(filename)	- open file
@@ -30,17 +31,24 @@ static int	num_recs;			// num stored
 static int	cur_rec;			// next to go
 static int	fd_utmp = -1;			// read from
 
-utmp_open(char *filename)
+// Functinos
+int utmp_open(char *filename);
+struct utmp *utmp_next();
+int utmp_reload();
+void utmp_close();
+
+
+int utmp_open(char *filename)
 {
-	fd_utmp = open(filename, O_RDONLY);
-	cur_rec = num_recs = 0;
-	return fd_utmp;
+	fd_utmp = open(filename, O_RDONLY);	// open it
+	cur_rec = num_recs = 0;			// no recs yet
+	return fd_utmp;				// report
 }
 struct utmp *utmp_next()
 {
 	struct utmp *recp;
-	if( fd_utmp == -1)
-	    	return NULLUT;
+	if( fd_utmp == -1)			// error
+	    	return NULLUT;	
 	if( cur_rec == num_recs && utmp_reload() == 0)
 	    	return NULLUT;
 	
@@ -52,18 +60,19 @@ struct utmp *utmp_next()
 int utmp_reload()
 {
 	int	amt_read;
+	/* read them in */
 	amt_read = read( fd_utmp, utmpbuf, NRECS * UTSIZE);
-	
+	/* how many did we get? */
 	num_recs = amt_read / UTSIZE;
-	
+	/* reset pointer */
 	cur_rec = 0;
 
 	return num_recs; 		
 }
 
-utmp_close()
+void utmp_close()
 {
-	if (fd_utmp != -1)
+	if (fd_utmp != -1)	/* don't close if not	*/
 	    	close( fd_utmp);
 }
 
