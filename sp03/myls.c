@@ -46,18 +46,14 @@ void do_ls( char dirname[])
 	struct dirent	*direntp;	/* each entry		*/
 	char path[1000];		/* full path		*/
 	
-	//strcpy(path, "");		/* inisialize path	*/
-	//strcat(path, dirname);		/* path + high directory name	*/
-	//strcat(path, "/");		/* path separator	*/
-	//strcat(path, direntp->d_name);	/* path + low directory name */	
 	if( (dir_ptr = opendir(dirname) ) == NULL ) {
 	    	fprintf(stderr, "ls1: cannot open %s\n", dirname);
 	}else
 	{
 		while( ( direntp = readdir(dir_ptr) ) != NULL) {
-			strcpy(path, "");		/* inisialize path	*/
-			strcat(path, dirname);		/* path + high directory name	*/
-			strcat(path, "/");		/* path separator	*/	
+			strcpy(path, "");				/* inisialize path	*/
+			strcat(path, dirname);			/* path + high directory name	*/
+			strcat(path, "/");				/* path separator	*/	
 			strcat(path, direntp->d_name);	/* path + low directory name */	
 			dostat(path);
 		}

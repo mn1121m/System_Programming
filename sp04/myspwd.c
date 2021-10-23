@@ -38,13 +38,14 @@ void printpathto(ino_t this_inode)
 	char	its_name[BUFSIZ];
 	static int func_called = 0;
 
+	/* if current place = "/", then print "/"	*/
 	getted_inode = get_inode("..");
 	if(getted_inode == this_inode && !func_called) {
 		printf("/");
 		return;
 	}
 	func_called++;
-
+	/* if current plac != "/", then print from bottom to up	*/
 	if(get_inode("..") != this_inode)
 	{
 	    chdir("..");
