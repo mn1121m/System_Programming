@@ -24,7 +24,7 @@ char *next_cmd(char *prompt, FILE *fp)
 	int c;			/* input char		*/
 	
 	printf("%s", prompt);	/* prompt user		*/
-	while( ( c= getc(fp) ) != EOF ) {
+	while( ( c = getc(fp)) != EOF ) {
 		/* need space ? */
 		if( pos+1 >= bufspace) {	/* 1 for \0	*/
 			if( bufspace == 0)	/* yL 1st time	*/
@@ -134,7 +134,7 @@ void * emalloc(size_t n)
 	return rv;
 }
 
-void * eralloc(void *p, size_t n)
+void * erealloc(void *p, size_t n)
 {
 	void *rv;
 	if( (rv = realloc(p, n)) == NULL)
