@@ -17,7 +17,7 @@ int main()
         perror("fork"); 
     else if (fork_rv == 0)          /* if child is ok       */
         printf("I am the child. my pid = %d\n", getpid());
-    else    //parent
+    else                            //parent
         printf("I am the parent. my child is %d\n", fork_rv);
 
 }
