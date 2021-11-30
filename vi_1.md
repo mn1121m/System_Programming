@@ -232,4 +232,3 @@
     - set shftwidth=4 
     - set laststatus=2 
     - syntax on
-    - 
