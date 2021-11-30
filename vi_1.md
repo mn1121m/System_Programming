@@ -231,4 +231,5 @@
     - set smartindent
     - set shftwidth=4 
     - set laststatus=2 
-    - systanx on
+    - syntax on
+    - 
