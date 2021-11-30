@@ -227,4 +227,8 @@
 
 - $ sudo apt-get install vim
 - $ vi ~/.vimrc
-    - set nu, set smartindent, set shftwidth=4, set laststatus=2, systanx on ...
+    - set nu 
+    - set smartindent
+    - set shftwidth=4 
+    - set laststatus=2 
+    - syntax on
