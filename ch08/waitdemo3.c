@@ -50,7 +50,7 @@ void parent_code(int childpid)
 {
 	signal(SIGCHLD, (void*)child_handler);
 	while(1) {
-		printf("parent is busy ...");
+		printf("parent is busy ...\n");
 		sleep(1);
 
 	}
@@ -69,5 +69,6 @@ static void child_handler(int sig)
 	bit_7 = child_status & 0x80;
 
 	printf("status: exit = %d, sig = %d, core = %d\n", high_8, low_7, bit_7);
+	exit(1);	//종료
 }
 
