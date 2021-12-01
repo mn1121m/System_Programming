@@ -4,7 +4,11 @@ author: 2018117610_moonjunyong
 datetime: 2021-11-12 10:30
 description:	small-shell version 2
 		small shell that supports command line parsing
-		and if.. then.. else. fi logic (by calling process())
+		and if.. then.. else. fi logic (by calling process() )
+
+compile: 	cc -o smsh2 smsh2.c splitline.c execute.c process.c controlflow.c
+			./smsh2
+
 */
 #include	<stdio.h>
 #include	<stdlib.h>

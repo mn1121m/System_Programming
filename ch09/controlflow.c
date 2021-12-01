@@ -4,7 +4,7 @@ author:	2018117610_moojunyong
 datetime: 2021-11-19 23:40
 description:
 		"if" processing is done with two state varibales
-
+			if_state and if_result
 */
 #include <stdio.h>
 #include <string.h>
@@ -17,6 +17,7 @@ static int if_state	=	NEUTRAL;
 static int if_result	=	SUCCESS;
 static int last_stat	=	0;
 
+int process(char **args);	// process 함수 선언
 int syn_err(char *);
 
 int ok_to_execute()
@@ -50,7 +51,7 @@ int do_control_command(char **args)
 		if( if_state != NEUTRAL)
 			rv = syn_err("if unexpected");
 		else {
-		    	last_stat = process(args+1);
+		    last_stat = process(args+1);
 			if_result = (last_stat == 0 ? SUCCESS : FAIL);
 			if_state = WANT_THEN;
 			rv = 0;

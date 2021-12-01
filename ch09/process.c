@@ -1,10 +1,14 @@
 /*
-file:	process.c
+file:	process.c - command processing layer
 author:	2018117610_moonjunyong
 datetime: 2021-11-19 23:30
 description: 
 
 The process(char **arglist) function is called by te main loop
+It site in front of the execute() function. This layer handles
+two main calsses of processing:
+	a) built-in functions (e.g. exit(), set, =, read, ..)
+	b) control structures (e.g. if, while, for)
 
 */
 #include <stdio.h>
@@ -25,8 +29,6 @@ int process(char **args)
 	    	rv = execute(args);
 	return rv;
 }
-
-
 
 
 
