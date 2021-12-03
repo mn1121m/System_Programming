@@ -10,7 +10,7 @@ description:
 #include	<string.h>
 #include	<ctype.h>
 #include	"smsh.h"
-//#include	"varlib.h"
+#include	"varlib.h"
 
 int assign(char *);
 int okname(char *);

@@ -14,6 +14,8 @@ description:	purpose:	run a program passing it arguments
 #include <signal.h>
 #include <sys/wait.h>
 
+extern char **environ;
+
 int execute(char *argv[])
 {
 	int 	pid;

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "smsh.h": "c",
+        "varlib.h": "c"
+    }
+}

@@ -54,6 +54,27 @@ void fatal(char *s1, char *s2, int n)
 	exit(n);
 }
 
-
+/* compile -> result 
+moonjunyong@munjun-yong-ui-MacBookPro ch09 % ./smsh2
+> grep lp /etc/passwd
+_lp:*:26:26:Printing Services:/var/spool/cups:/usr/bin/false
+_usbmuxd:*:213:213:iPhone OS Device Helper:/var/db/lockdown:/usr/bin/false
+> if grep lp /etc/passwd
+_lp:*:26:26:Printing Services:/var/spool/cups:/usr/bin/false
+_usbmuxd:*:213:213:iPhone OS Device Helper:/var/db/lockdown:/usr/bin/false
+> then
+> echo ok
+ok
+> fi
+> if grep pati /etc/passwd
+> echo ok
+syntax error: then expected
+> fi
+s yntax error: fi unexpected
+> echo ok
+ok
+> then
+syntax error: then unexpected
+*/
 
 

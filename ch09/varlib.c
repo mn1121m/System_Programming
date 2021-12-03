@@ -4,22 +4,40 @@ author: 2018117610_moonjunyong
 datetime: 2021-11-20 00:34
 description:
 	a simple storage system to store name=value pairs
+	with facility to mark items as part of the environment
 
+	interface:
+		VLsote(name, value)		return 1 for OK, 0 for no
+		VLlookup(name)			return string or NULL if not there
+		VLlist()				prints out current table
+	
+	envionment-related functions
+		VLexport(name)			add name to list of env vars
+		VLtable2envion()		copy from table to environ
+		VLenviron2table()		copy from environ to table
+	
+	details:
+		the table is stored as an array of structs that
+		contain a flag for global and a single string of
+		the form name=value. This allow EZ addition to the
+		environment. It makes searching pretty easy, as
+		long as you search for "name="
 */
 
 #include	<stdio.h>
 #include	<stdlib.h>
-#include	"smsh.h"
+#include	"varlib.h"			// varlib.h 만들어야 한다.(you make a filename that is "varlib.h")
 #include	<string.h>
 
-#define MAXVARS 200
+#define MAXVARS 200				/* a linked list would be nicer */
 
 struct var {
-    		char *str;
-		int global;
+    	char *str;				/* name=val string				*/
+		int global;				/* a boolean					*/
 };
-static struct var tab[MAXVARS];
-static char *new_string(char *, char *);
+static struct var tab[MAXVARS];	/* the table					*/
+
+static char *new_string(char *, char *);	/* private method	*/
 static struct var *find_item(char *, int);
 
 int VLstore(char *name, char *val)

@@ -7,12 +7,13 @@ description:
 The process(char **arglist) function is called by te main loop
 
 */
-#include <stdio.h>
-#include "smsh.h"
+#include 	<stdio.h>
+#include	"smsh.h"
 
 int is_control_command(char *);
 int do_control_command(char **);
 int ok_to_execute();
+int builtin_command(char **args, int *resultp);
 
 int process(char **args)
 {
@@ -21,9 +22,10 @@ int process(char **args)
 	    	rv = 0;
 	else if( is_control_command(args[0]) )
 	    	rv = do_control_command(args);
-	else if( ok_to_execute() )
-	    	if(!builtin_command(args, &rv) )
-			rv = execute(args);
+	else if( ok_to_execute() ) {
+	    	if( !builtin_command(args, &rv) )
+					rv = execute(args);
+	}
 	return rv;
 }
 
