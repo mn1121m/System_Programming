@@ -41,22 +41,33 @@ static char *new_string(char *, char *);	/* private method	*/
 static struct var *find_item(char *, int);
 
 int VLstore(char *name, char *val)
+/*
+	traverse list, if found, replace it, else add at end
+	since there is no delete, a blank one is free one
+	return 1 if trouble, 0 if ok (like a command)
+*/
 {
 	struct var *itemp;
 	char *s;
 	int rv = 1;
 	
-	if((itemp=find_item(name,1))!= NULL && (s=new_string(name,val))!= NULL) {
-	    	if( itemp->str)
-		    	free(itemp->str);
-		itemp->str = s;
-		rv = 0;
+	if((itemp=find_item(name,1))!= NULL 
+	&& (s=new_string(name,val))!= NULL) 
+	{
+	    if( itemp->str)				/* has a val?		*/
+		    free(itemp->str);		/* y : remove it	*/
+		itemp->str = s;				
+		rv = 0;						/* ok!				*/
 	}
 	return rv;
 }
-char *new_string(char *name, char *val)
+static char *new_string(char *name, char *val)
+/*
+	return new string of form name=value or NULL on error
+*/
 {
 	char *retval;
+	
 	retval = malloc(strlen(name) + strlen(val) + 2);
 	if( retval != NULL)
 	    	sprintf(retval, "%s=%s", name, val);
@@ -64,6 +75,9 @@ char *new_string(char *name, char *val)
 }
 
 char *VLlookup(char *name)
+/*
+	return value of var or empty string if not there
+*/
 {
 	struct var *itemp;
 	if( (itemp = find_item(name, 0)) != NULL)
@@ -72,6 +86,10 @@ char *VLlookup(char *name)
 }
 
 int VLexport(char *name)
+/*
+	marks a var for export, adds it if not there
+	return 1 for no, o for ok
+*/
 {
 	struct var *itemp;
 	int 	rv = 1;
@@ -86,6 +104,11 @@ int VLexport(char *name)
 }
 
 static struct var *find_item(char *name, int first_blank)
+/*
+	searches table for an item
+	return ptr to struct or NULL if not found
+	OR if (first_blank) then ptr to first blank one
+*/
 {
 	int i;
 	int len = strlen(name);
@@ -104,6 +127,11 @@ static struct var *find_item(char *name, int first_blank)
 }
 
 void VLlist()
+/*
+	performs the shell's set command
+	Lists the contents of the variable table, marking each
+	exported variable with the symbol '*'
+*/
 {
 	int i;
 	for(i = 0; i < MAXVARS && tab[i].str != NULL; i++)
@@ -115,6 +143,10 @@ void VLlist()
 	}
 }
 int VLenviron2table(char *env[])
+/*
+	initialize the variable table by loading array of strings
+	return 1 for ok, 0 for not ok
+*/
 {
 	int i;
 	char *newstring;
@@ -130,19 +162,23 @@ int VLenviron2table(char *env[])
 		tab[i].str = newstring;
 		tab[i].global = 1;
 	}
-	while( i < MAXVARS) {
-	    	tab[i].str = NULL;
-		tab[i++].global = 0;
+	while( i < MAXVARS) {			/* I know we don't need this	*/
+	    tab[i].str = NULL;			/* static global are nulled		*/
+		tab[i++].global = 0;		/* by default					*/
 	}
 	return 1;
 }
 
 char ** VLtable2environ()
+/*
+	build an array of pointers suitable for making a new environment
+	note, you need to free() this when done to avoid a memory leaks
+*/
 {
-	int	i,
-		j,
-		n = 0;
-	char	**envtab;
+	int		i,					/* index			*/
+			j,					/* another index	*/
+			n = 0;				/* counter			*/
+	char	**envtab;			/* array of pointers */
 
 	for(i = 0; i < MAXVARS && tab[i].str != NULL; i++)
 	    	if(tab[i].global == 1)

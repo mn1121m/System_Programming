@@ -55,4 +55,25 @@ void fatal(char *s1, char *s2, int n)
 	exit(n);
 }
 
+/* compile && result
+------compile-------------
+cc -o smsh3 smsh2.c splitline.c execute.c process2.c controlflow.c \builtin.c varlib.c
+./smsh3
 
+------result--------------
+> set
+> day=monday
+> temp=75
+> TZ=CST6CDT
+> x.y=z
+cannot execute command: No such file or directory
+> set
+    day=monday
+    temp=75
+    TZ=CST6CDT
+> date
+2021년 12월  3일 금요일 21시 43분 54초 KST
+> echo $temp, $day
+$temp, $day
+-------------------------------
+*/
