@@ -13,6 +13,7 @@ description:	purpose:	run a program passing it arguments
 #include <unistd.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include	"varlib.h"
 
 extern char **environ;
 
@@ -26,7 +27,7 @@ int execute(char *argv[])
 	if( (pid = fork()) == -1)
 		perror("fork");
 	else if (pid == 0) {
-	    	environ = VLtable2environ();
+	    environ = VLtable2environ();	/* new line */
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		execvp(argv[0], argv);
@@ -39,4 +40,19 @@ int execute(char *argv[])
 	}
 	return child_info;
 }
+/* compile
 
+cc -o smsh4 smsh4.c splitline.c execute2.c process2.c controlflow.c builtin.c varlib.c
+./smsh4
+*/
+
+/* result
+
+@ date
+2021년 12월  3일 금요일 23시 30분 03초 KST
+@ TZ=PST8PDT
+@ export TZ
+@ date
+2021년 12월  3일 금요일 06시 30분 20초 PST
+@ 
+*/

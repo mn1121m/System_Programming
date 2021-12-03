@@ -12,6 +12,7 @@ description:	small-shell version 4
 #include	<signal.h>
 #include 	<sys/wait.h>
 #include	"smsh.h"
+#include 	"varlib.h"
 
 #define DFL_PROMPT	"@ "
 
