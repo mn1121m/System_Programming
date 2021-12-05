@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "smsh.h": "c",
-        "varlib.h": "c"
+        "varlib.h": "c",
+        "locale": "c"
     }
 }
