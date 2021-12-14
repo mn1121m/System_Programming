@@ -1,4 +1,4 @@
-/* 
+/* not complete
 file:   pipe3.c
 author: 2018117610_moonjunyong
 datetime:   2021-12-5   22:00

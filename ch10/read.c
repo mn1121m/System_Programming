@@ -1,4 +1,5 @@
-/* read.c
+/* not complete
+file:           read.c
 author:     2018117610_moonjunyong
 datetime:   2021.12.5
 description:
