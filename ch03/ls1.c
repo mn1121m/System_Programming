@@ -1,4 +1,4 @@
-/*
+/* 
 file: ls1.c
 author: 2018117610_moon jun yong
 datatime: 2021-10-22 (updated)

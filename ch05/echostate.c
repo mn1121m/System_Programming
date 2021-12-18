@@ -1,4 +1,4 @@
-/*
+/* 
 file: echostate.c - chow state of echo bit
 description:
 		reports current state echo bit in tty driver for fd 0
