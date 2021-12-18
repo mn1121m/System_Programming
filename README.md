@@ -8,6 +8,7 @@
 - shell
 
 [Text Book : Understanding Unix/Linux Programming, Bruce Molay, PrenticeHall]
+![시스템프로그래밍](https://image.aladin.co.kr/product/893/56/cover500/0130083968_1.jpg)
  - C language
  - [gcc & make install]
    - $ sudo apt-get install build essential
