@@ -1,5 +1,6 @@
 # System_Programming
-2021_2_SystemProgramming
+- 2021_2_SystemProgramming
+- This is a repository for System_Programming implement in C language
 
 ## Study
 - 수업시간때 배운 시스템프로그래밍에 대한 개념정리 및 문제풀이 정리를 하였습니다.
